@@ -1,0 +1,35 @@
+{
+  "name": "경주 신라cc 예약 도우미",
+  "description": "경주 신라cc 예약을 돕는 크롬 확장 프로그램입니다.",
+  "version": "0.01",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "alarms",
+    "notifications"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/images/icons-16.png",
+      "32": "/images/icons-32.png",
+      "48": "/images/icons-48.png",
+      "128": "/images/icons-128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/icons-16.png",
+    "32": "/images/icons-32.png",
+    "48": "/images/icons-48.png",
+    "128": "/images/icons-128.png"
+  },
+  "host_permissions": ["*://*.shinlacc.co.kr/*"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

@@ -1,0 +1,66 @@
+/* 기본 스타일 초기화 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  display: flex;
+  width: 200px;
+
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+/* 각 입력 필드 스타일 */
+div {
+  margin-bottom: 12px; /* 각 입력 필드 간 간격 */
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type='number'] {
+  padding: 8px;
+  margin-top: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* 입력 필드 focus 상태 스타일 */
+input[type='number']:focus {
+  border-color: #0078d7;
+  box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+/* 버튼 스타일 */
+#submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #0078d7;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+#submit:hover {
+  background-color: #005bb5;
+}
+
+#submit:active {
+  background-color: #004c9d;
+}
