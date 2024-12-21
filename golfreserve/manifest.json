@@ -18,7 +18,9 @@
   },
   "commands": {
     "_execute_action": {
-      "suggested_key": "Ctrl+Shift+Y",
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
       "description": "Execute action when the extension icon is clicked"
     },
     "start_reservation": {
@@ -26,6 +28,12 @@
         "default": "Alt+T"
       },
       "description": "예약 시작"
+    },
+    "fill_cert_no": {
+      "suggested_key": {
+        "default": "Alt+U"
+      },
+      "description": "인증 번호 입력"
     }
   },
   "background": {
