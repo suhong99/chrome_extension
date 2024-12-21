@@ -4,7 +4,9 @@
   "version": "0.01",
   "manifest_version": 3,
 
-  "permissions": ["storage", "activeTab", "notifications"],
+  "permissions": ["storage", "activeTab", "notifications", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -19,9 +21,11 @@
       "suggested_key": "Ctrl+Shift+Y",
       "description": "Execute action when the extension icon is clicked"
     },
-    "show_alert": {
-      "suggested_key": "Alt+T",
-      "description": "Show Alert on Alt+T"
+    "start_reservation": {
+      "suggested_key": {
+        "default": "Alt+T"
+      },
+      "description": "예약 시작"
     }
   },
   "background": {

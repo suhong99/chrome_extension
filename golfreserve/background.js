@@ -1,28 +1,53 @@
-// chrome.runtime.onInstalled.addListener(() => {
-//   // Command가 호출되었을 때 실행되는 리스너
-//   chrome.commands.onCommand.addListener((command) => {
-//     if (command === 'start-reservation') {
-//       chrome.storage.local.get(['startTime', 'endTime'], (data) => {
-//         const { startTime, endTime } = data;
+chrome.commands.onCommand.addListener((command) => {
+  if (command === 'start_reservation') {
+    chrome.notifications.create({
+      type: 'basic',
+      iconUrl: '/images/icons-32.png',
+      title: '알림',
+      message: 'Alt+T가 눌렸습니다!',
+    });
 
-//         if (!startTime || !endTime) {
-//           alert('저장된 시간이 없습니다. 시간을 먼저 설정해주세요.');
-//           return;
-//         }
+    chrome.storage.local.get(['startTime', 'endTime'], (data) => {
+      const { startTime, endTime } = data;
 
-//         // 시간을 숫자로 변환 (11:00 -> 1100)
-//         const startNumeric = parseInt(startTime.replace(':', ''), 10);
-//         const endNumeric = parseInt(endTime.replace(':', ''), 10);
+      if (!startTime || !endTime) {
+        chrome.notifications.create({
+          type: 'basic',
+          iconUrl: '/images/icons-32.png',
+          title: '알림',
+          message: '저장된 시간이 없습니다. 시간을 먼저 설정해주세요.',
+        });
+        return;
+      }
 
-//         chrome.scripting.executeScript({
-//           target: { tabId: sender.tab.id },
-//           func: executeReservation,
-//           args: [startNumeric, endNumeric],
-//         });
-//       });
-//     }
-//   });
-// });
+      // 시간을 숫자로 변환
+      const startNumeric = parseInt(startTime.replace(':', ''), 10);
+      const endNumeric = parseInt(endTime.replace(':', ''), 10);
+
+      // 현재 활성 탭의 ID 가져오기
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs.length === 0) {
+          chrome.notifications.create({
+            type: 'basic',
+            iconUrl: '/images/icons-32.png',
+            title: '알림',
+            message: '활성화된 탭이 없습니다.',
+          });
+          return;
+        }
+
+        const tabId = tabs[0].id;
+
+        // 스크립트 실행
+        chrome.scripting.executeScript({
+          target: { tabId },
+          func: executeReservation,
+          args: [startNumeric, endNumeric],
+        });
+      });
+    });
+  }
+});
 
 function executeReservation(startNumeric, endNumeric) {
   const rows = document.querySelectorAll('tr');
@@ -45,14 +70,3 @@ function executeReservation(startNumeric, endNumeric) {
     }
   });
 }
-
-chrome.commands.onCommand.addListener((command) => {
-  if (command === 'show_alert') {
-    chrome.notifications.create({
-      type: 'basic',
-      iconUrl: '/images/icons-16.png',
-      title: '알림',
-      message: 'Alt+T가 눌렸습니다!',
-    });
-  }
-});
