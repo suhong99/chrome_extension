@@ -3,7 +3,7 @@
   "description": "경주 신라cc 예약을 돕는 크롬 확장 프로그램입니다.",
   "version": "0.01",
   "manifest_version": 3,
-  "permissions": ["storage", "notifications", "scripting", "tabs"],
+  "permissions": ["storage", "notifications", "scripting"],
   "host_permissions": ["https://sillacc.co.kr/reservation/golf/*"],
   "action": {
     "default_popup": "popup.html",
@@ -37,6 +37,12 @@
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://sillacc.co.kr/reservation/golf/*"],
+      "js": ["content.js"]
+    }
+  ],
   "icons": {
     "16": "/images/icons-16.png",
     "32": "/images/icons-32.png",
