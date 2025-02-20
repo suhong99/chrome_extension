@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // 예약 실행 함수
 function executeReservation(startNumeric, endNumeric) {
   const rows = document.querySelectorAll('tr');
-  rows.forEach((row) => {
+  for (const row of rows) {
     const timeCell = row.querySelector('td:first-child');
     if (timeCell) {
       const timeText = timeCell.textContent.trim();
@@ -23,14 +23,15 @@ function executeReservation(startNumeric, endNumeric) {
 
       if (timeNumeric >= startNumeric && timeNumeric <= endNumeric) {
         const buttons = row.querySelectorAll('td button');
-        buttons.forEach((button) => {
+        for (const button of buttons) {
           if (!button.disabled) {
             button.click();
+            return; // 하나 실행되면 멈춤
           }
-        });
+        }
       }
     }
-  });
+  }
 }
 
 // 인증 번호 입력 함수
