@@ -15,7 +15,10 @@ chrome.commands.onCommand.addListener((command) => {
     }
 
     // 명령 처리
-    if (command === 'start_reservation') {
+    if (
+      command === 'start_reservation' ||
+      command === 'start_self_reservation'
+    ) {
       chrome.storage.local.get(['startTime', 'endTime'], (data) => {
         const { startTime, endTime } = data;
 
@@ -35,7 +38,7 @@ chrome.commands.onCommand.addListener((command) => {
           },
           () => {
             chrome.tabs.sendMessage(tab.id, {
-              action: 'start_reservation',
+              action: command,
               startNumeric,
               endNumeric,
             });

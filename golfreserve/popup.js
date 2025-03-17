@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     chrome.storage.local.set({ startTime, endTime }, () => {
-      alert(`희망예약시간이 ${startInput} ~ ${endInput}으로 설정되었습니다`);
+      alert(`희망예약시간이 ${startTime} ~ ${endTime}으로 설정되었습니다`);
     });
   });
 });

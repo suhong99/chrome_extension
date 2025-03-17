@@ -6,6 +6,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     executeReservation(startNumeric, endNumeric);
   }
 
+  if (message.action === 'start_self_reservation') {
+    executeSelfReservation(startNumeric, endNumeric);
+  }
+
   if (message.action === 'fill_cert_no') {
     // 인증 번호 입력 로직
     fillCertNo();
@@ -27,6 +31,34 @@ function executeReservation(startNumeric, endNumeric) {
           if (!button.disabled) {
             button.click();
             return; // 하나 실행되면 멈춤
+          }
+        }
+      }
+    }
+  }
+}
+
+// 셀프 예약만 하기
+function executeSelfReservation(startNumeric, endNumeric) {
+  const rows = document.querySelectorAll('tr');
+  for (const row of rows) {
+    const timeCell = row.querySelector('td:first-child');
+    if (timeCell) {
+      const timeText = timeCell.textContent.trim();
+      const timeNumeric = parseInt(timeText.replace(':', ''), 10);
+
+      if (timeNumeric >= startNumeric && timeNumeric <= endNumeric) {
+        const buttons = row.querySelectorAll('td button');
+
+        // '셀프신청'이 포함된 버튼만 클릭
+        for (const button of buttons) {
+          const span = button.querySelector('span');
+          if (
+            span &&
+            span.textContent.trim() === '셀프신청' &&
+            !button.disabled
+          ) {
+            button.click();
           }
         }
       }
