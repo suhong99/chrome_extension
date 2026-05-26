@@ -30,34 +30,16 @@ chrome.commands.onCommand.addListener((command) => {
         const startNumeric = parseInt(startTime.replace(':', ''), 10);
         const endNumeric = parseInt(endTime.replace(':', ''), 10);
 
-        // 콘텐츠 스크립트로 시간 범위를 전달
-        chrome.scripting.executeScript(
-          {
-            target: { tabId: tab.id },
-            files: ['content.js'],
-          },
-          () => {
-            chrome.tabs.sendMessage(tab.id, {
-              action: command,
-              startNumeric,
-              endNumeric,
-            });
-          }
-        );
+        chrome.tabs.sendMessage(tab.id, {
+          action: command,
+          startNumeric,
+          endNumeric,
+        });
       });
     }
 
     if (command === 'fill_cert_no') {
-      // 콘텐츠 스크립트에 fill_cert_no 액션 전달
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: tab.id },
-          files: ['content.js'],
-        },
-        () => {
-          chrome.tabs.sendMessage(tab.id, { action: 'fill_cert_no' });
-        }
-      );
+      chrome.tabs.sendMessage(tab.id, { action: 'fill_cert_no' });
     }
   });
 });
